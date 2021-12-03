@@ -12,7 +12,12 @@
           :src="userInfo.photo"
         />
         <span class="name" slot="title">{{userInfo.name}}</span>
-        <van-button class="edit-btn" slot="right-icon" size="mini" round>
+        <van-button 
+        class="edit-btn" 
+        slot="right-icon" 
+        size="mini" 
+        to="/profile"
+        round>
           编辑资料
         </van-button>
       </van-cell>
