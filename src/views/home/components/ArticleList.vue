@@ -1,5 +1,5 @@
 <template>
-  <div class="article-list">
+  <div class="article-list" ref="artList">
     <van-pull-refresh
       v-model="isRefresh"
       @refresh="onRefresh"
@@ -29,6 +29,7 @@
 <script>
 import { getArticle } from "@/api/article";
 import ArticleItem from "@/components/ArticleItem";
+import {debounce} from 'lodash'
 export default {
   name: "ArticleList",
   props: ["channel"],
@@ -45,7 +46,23 @@ export default {
       isRefresh: false,
       // 下拉刷新成功提示文字
       refreshText: "",
+      // 记录文章列表下拉的距离
+      scrollTop:0
     };
+  },
+  mounted(){
+    const artList=this.$refs.artList
+    // 监听文章列表滚动的事件,由于触发太频繁，还要进行防抖
+    artList.onscroll=debounce(()=>{
+      // console.log(artList.scrollTop)
+      // 获得文章列表的下拉距离
+      this.scrollTop=artList.scrollTop
+    },50)
+  },
+  // 当缓存的组件被激活时的钩子
+  activated(){
+    // 文章列表回到之前下拉的距离
+    this.$refs.artList.scrollTop=this.scrollTop
   },
   methods: {
     //  获取文章列表数据

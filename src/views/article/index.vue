@@ -195,52 +195,52 @@ export default {
     },
     // 处理收藏按钮
     async handleCollect() {
-      this.$toast.loading({
-        message: "正在处理中...",
-        forbidClick: true,
-      });
+      // this.$toast.loading({
+      //   message: "正在处理中...",
+      //   forbidClick: true,
+      // });
       if (this.article.is_collected) {
         // 如果已收藏，就调接口取消收藏
         await deleteArticleCollect(this.article.art_id);
-        this.$toast.success({
-          message: "取消收藏",
-          position: "bottom",
-        });
+        // this.$toast.success({
+        //   message: "取消收藏",
+        //   position: "bottom",
+        // });
       } else {
         // 如果未收藏，就调接口收藏
         await addArticleCollect(this.article.art_id);
-        this.$toast.success({
-          message: "收藏成功",
-          position: "bottom",
-        });
+        // this.$toast.success({
+        //   message: "收藏成功",
+        //   position: "bottom",
+        // });
       }
       this.article.is_collected = !this.article.is_collected;
     },
     // 处理点赞按钮
     async handleLike() {
-       this.$toast.loading({
-        message: "网络较慢，正在处理中...",
-        forbidClick: true,
-      });
+      //  this.$toast.loading({
+      //   message: "网络较慢，正在处理中...",
+      //   forbidClick: true,
+      // });
       if (this.article.attitude===1) {
-         this.article.attitude=0
-        // 如果已收藏，就调接口取消收藏
+         
+        // 如果已点赞，就调接口取消点赞
         await deleteArticleLike(this.article.art_id);
-        this.$toast.success({
-          message: "取消点赞",
-          position: "bottom",
+        // this.$toast.success({
+        //   message: "取消点赞",
+        //   position: "bottom",
          
-        });
-        
+        // });
+        this.article.attitude=0
       } else {
-        this.article.attitude=1
-        // 如果未收藏，就调接口收藏
+        
+        // 如果未点赞，就调接口点赞
         await addArticleLike(this.article.art_id);
-        this.$toast.success({
-          message: "点赞成功",
-          position: "bottom",
-        });
-         
+        // this.$toast.success({
+        //   message: "点赞成功",
+        //   position: "bottom",
+        // });
+         this.article.attitude=1
       }
     },
     // 发布评论

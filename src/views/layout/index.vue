@@ -1,7 +1,10 @@
 <template>
   <div>
     <!-- 路由占位符 -->
+    <keep-alive>
     <router-view></router-view>
+    </keep-alive>
+    
     <!-- 底部导航栏 -->
     <van-tabbar v-model="active" route>
       <van-tabbar-item to='/' icon="home-o">首页</van-tabbar-item>
@@ -13,12 +16,19 @@
 </template>
 
 <script>
+
 export default {
   name: "Layout",
   data() {
       return {
-          active:0
+          active:0,
+
       }
   },
+ 
+  mounted(){
+    // 一登录就缓存layout的子路由
+    this.$store.commit('addCachePage','Layout')
+  }
 };
 </script>

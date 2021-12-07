@@ -113,8 +113,10 @@ export default {
           message: "登录成功",
           forbidClick: true,
         });
+        // 在跳转页面之前，先清空之前缓存的组件
+        this.$store.commit('removeCachePage','Layout')
         // 跳转到之前的页面
-        this.$router.back()
+        this.$router.push(this.$route.query.redirect || '/')
         
       } catch (err) {
         console.log(err);

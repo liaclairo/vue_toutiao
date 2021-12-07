@@ -51,7 +51,12 @@
       </van-grid>
     </van-cell-group>
     <!-- 未登录显示的头部信息 -->
-    <div v-else class="unlogin" @click="$router.push('/login')">
+    <div v-else class="unlogin" @click="$router.push({
+      name:'login',
+      query:{
+        redirect:'/my'
+      }
+    })">
       <div class="img">
         <img src="./手机.png" alt="" />
       </div>
@@ -75,7 +80,7 @@
     <!-- 消息通知、小智同学 -->
     <div class="news-smart mb-4">
       <van-cell v-if="user" title="消息通知" is-link to="/" />
-      <van-cell title="小智同学" is-link to="/" />
+      <van-cell title="小智同学" is-link to="/user/chat" />
     </div>
     <!-- 退出登录按钮 -->
     <div v-if="user" class="layout">
@@ -99,15 +104,22 @@ export default {
     ...mapState(["user"]),
   },
   created() {
-    // 获取当前登录用户信息
+   // 获取当前登录用户信息
+    this.getUser()
+  
+  },
+  activated(){
     this.getUser()
   },
   methods: {
     // 获取当前登录用户信息
     async getUser() {
-      const { data: res } = await getUserInfo()
+      // 如果用户已登录，再发送获取用户信息的请求
+     if(this.user){
+        const { data: res } = await getUserInfo()
       this.userInfo=res.data
       console.log(this.userInfo)
+     }
     },
 
     // 处理退出登录的回调函数

@@ -1,6 +1,6 @@
 <template>
   
-  <van-list
+  <van-list 
   v-model="loading"
   :finished="finished"
   finished-text="没有更多了"
@@ -29,7 +29,9 @@ export default {
   },
   props:['source','commentList','type'],
   components:{CommentItem},
-  created() {},
+  mounted() {
+
+  },
   computed: {},
   methods: {
     // 下拉列表

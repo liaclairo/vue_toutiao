@@ -5,7 +5,12 @@
       title="个人信息"
       left-text="返回"
       left-arrow
-      @click-left="$router.back()"
+      @click-left="$router.push({
+        name:'my',
+        query:{
+          redirect:$router.currentRoute.fullPath
+        }
+      })"
     />
     <!-- 头像 -->
     <input type="file" hidden ref="file" accept="image/*" @change="onChange" />
